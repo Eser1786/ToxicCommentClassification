@@ -13,11 +13,11 @@ from false_negative_comments import get_false_negative_comment
 
 # X_train, X_test = vectorize_data(X_train, X_test)
 
-# # model, X_test, y_test, y_pred, y_prod = train_model_LogisticRegression(X_train, X_test, y_train, y_test)
+# # model, X_test, y_test, y_pred, y_prob = train_model_LogisticRegression(X_train, X_test, y_train, y_test)
 
-# model, X_test, y_test, y_pred, y_prod = train_model_Linear_SVM(X_train, X_test, y_train, y_test)
+# model, X_test, y_test, y_pred, y_prob = train_model_Linear_SVM(X_train, X_test, y_train, y_test)
 
-# evaluate_model(y_test, y_pred, y_prod)
+# evaluate_model(y_test, y_pred, y_prob)
 
 
 
@@ -31,13 +31,13 @@ X_train, X_test = vectorize_data(X_train, X_test)
 
 
 # có sử dụng balanced
-# model, X_test, y_test, y_pred, y_prod, cols = train_multi_labels_model_balanced(X_train, X_test, y_train, y_test) 
+# model, X_test, y_test, y_pred, y_prob, cols = train_multi_labels_model_balanced(X_train, X_test, y_train, y_test) 
 
 # không sử dụng balanced
-model, X_test, y_test, y_pred, y_prod, cols = train_multi_labels_model(X_train, X_test, y_train, y_test) 
+model, X_test, y_test, y_pred, y_prob, y_prob_2d, cols = train_multi_labels_model(X_train, X_test, y_train, y_test) 
 
 
-evaluate_multi_labels_model(y_test, y_pred, y_prod, cols)
+evaluate_multi_labels_model(y_test, y_pred, y_prob, y_prob_2d, cols)
 
-for label in cols:
-    get_false_negative_comment(X_test_raw, y_test, y_pred, label, cols)
+# for label in cols:
+#     get_false_negative_comment(X_test_raw, y_test, y_pred, label, cols)
