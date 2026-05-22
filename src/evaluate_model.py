@@ -70,3 +70,8 @@ def evaluate_model(y_test, y_pred, y_prod):
     # plt.show()
 
     print("ROC-AUC:", roc_auc)
+
+
+
+def evaluate_multi_labels_model(y_test, y_pred, y_prod, cols):
+    print(classification_report(y_test, y_pred, target_names=cols, zero_division=0))
