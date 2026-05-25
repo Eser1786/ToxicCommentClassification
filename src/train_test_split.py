@@ -25,7 +25,7 @@ def load_data_multi_label():
     df["clean_text"] = df["clean_text"].astype(str)
 
     X = df["clean_text"]
-    y = df[["toxic", "severe_toxic", "obscene", "insult", "threat", "identity_hate"]]
+    y = df[["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]]
     
 
     X_train, X_test, y_train, y_test = train_test_split(

@@ -34,3 +34,4 @@ print(df.columns)
 df = df.to_csv("data/processed/clean_train.csv", index=False)
 
 
+
