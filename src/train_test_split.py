@@ -20,7 +20,7 @@ def load_data():
     return X_train, X_test, y_train, y_test
 
 def load_data_multi_label():
-    df = pd.read_csv("data\processed\clean_train.csv") # data\processed\clean_train.csv
+    df = pd.read_csv("data/processed/clean_train.csv") # data\processed\clean_train.csv
     df["clean_text"] = df["clean_text"].fillna("")
     df["clean_text"] = df["clean_text"].astype(str)
 
