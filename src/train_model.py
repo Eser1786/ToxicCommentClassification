@@ -7,6 +7,9 @@ from sklearn.svm import LinearSVC
 from sklearn.calibration import CalibratedClassifierCV
 
 
+# save model 
+from save_and_load import save_model
+
 
 
 
@@ -19,6 +22,8 @@ def train_model_LogisticRegression(X_train, X_test, y_train, y_test):
     y_pred = model.predict(X_test)
     y_prod = model.predict_proba(X_test)[:,1]
 
+    save_model(model, "logistic_regression")
+
     return model, X_test, y_test, y_pred, y_prod
 
 def train_model_Linear_SVM(X_train, X_test, y_train, y_test):
@@ -28,5 +33,7 @@ def train_model_Linear_SVM(X_train, X_test, y_train, y_test):
 
     y_pred_svm = model.predict(X_test)
     y_prod_svm = model.predict_proba(X_test)[:,1]
+
+    save_model(model, "linear_svm")
 
     return model, X_test, y_test, y_pred_svm, y_prod_svm
