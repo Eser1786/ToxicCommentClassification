@@ -81,7 +81,11 @@ def evaluate_model(y_test, y_pred, y_prob):
 
 
 
-def evaluate_multi_labels_model(y_test, y_pred, y_prob, y_prob_2d, cols):
+def evaluate_multi_labels_model(y_test, y_pred, y_prob_2d, cols):
+
+    if hasattr(y_test, "values"):
+        y_test = y_test.values
+
     print(classification_report(y_test, y_pred, target_names=cols, zero_division=0))
 
     label_cols = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
@@ -127,8 +131,8 @@ def evaluate_multi_labels_model(y_test, y_pred, y_prob, y_prob_2d, cols):
     axes[1].legend(loc="upper right", fontsize=8)
 
     plt.tight_layout()
-    plt.savefig("results/multilabel_roc_pr_curves.png", dpi=150)
-    plt.show()
+    # plt.savefig("results/multilabel_roc_pr_curves.png", dpi=150)
+    # plt.show()
 
 
 
@@ -141,5 +145,5 @@ def evaluate_multi_labels_model(y_test, y_pred, y_prob, y_prob_2d, cols):
         ax.set_title(f"Confusion Matrix - {label}")
 
     plt.tight_layout()
-    plt.savefig("results/multilabel_confusion_matrices.png", dpi=150)
+    plt.savefig("results/multilabel_confusion_matrices_threshold.png", dpi=150)
     plt.show()

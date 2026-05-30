@@ -17,3 +17,4 @@ def load_model(model_name):
 def load_tfidf():
     tfidf = joblib.load("models/tfidf_vectorizer.pkl")
     print("tfidf load thành công")
+    return tfidf
