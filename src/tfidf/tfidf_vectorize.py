@@ -1,5 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
-from save_and_load import save_vectorizer
+from save_load.save_and_load import save_vectorizer
 
 def vectorize_data(X_train, X_test):
     tfidf = TfidfVectorizer(max_features=5000)

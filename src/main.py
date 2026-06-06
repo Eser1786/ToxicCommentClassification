@@ -1,10 +1,10 @@
-from train_test_split import load_data, load_data_multi_label
-from tfidf_vectorize import vectorize_data
-from train_model import train_model_LogisticRegression, train_model_Linear_SVM
-from evaluate_model import evaluate_model, evaluate_multi_labels_model
-from multi_labels import train_multi_labels_model_balanced, train_multi_labels_model
-from false_negative_comments import get_false_negative_comment
-from save_and_load import load_model, load_tfidf
+from train_test_split.train_test_split import load_data, load_data_multi_label
+from tfidf.tfidf_vectorize import vectorize_data
+from train.train_model import train_model_LogisticRegression, train_model_Linear_SVM
+from evaluate.evaluate_model import evaluate_model, evaluate_multi_labels_model
+from train.multi_labels import train_multi_labels_model_balanced, train_multi_labels_model
+from false_negative.false_negative_comments import get_false_negative_comment
+from save_load.save_and_load import load_model, load_tfidf
 import pandas as pd
 
 
@@ -14,12 +14,13 @@ import pandas as pd
 
 # X_train, X_test = vectorize_data(X_train, X_test)
 
-# # model, X_test, y_test, y_pred, y_prob = train_model_LogisticRegression(X_train, X_test, y_train, y_test)
+# model, X_test, y_test, y_pred, y_prob = train_model_LogisticRegression(X_train, X_test, y_train, y_test)
+
+# evaluate_model(y_test, y_pred, y_prob, dir_save="logistic_regression", model_name="logistic_regression")
 
 # model, X_test, y_test, y_pred, y_prob = train_model_Linear_SVM(X_train, X_test, y_train, y_test)
 
-# evaluate_model(y_test, y_pred, y_prob)
-
+# evaluate_model(y_test, y_pred, y_prob, dir_save="linear_svm", model_name="linear_svm")
 
 
 # === sử dụng model multi label ===
@@ -39,20 +40,29 @@ import pandas as pd
 # for label in cols:
 #     get_false_negative_comment(X_test_raw, y_test, y_pred, label, cols)
 
-# sử dụng threshold tuning
 
-# X_train, X_test, y_train, y_test = load_data_multi_label() #data\processed\clean_train.csv
 
-# X_test_raw = X_test
 
-# X_train, X_test = vectorize_data(X_train, X_test)
 
-# model, X_test, y_test_ml, y_pred_ml, y_prob_2d, y_pred_tuned, best_thresholds, cols = train_multi_labels_model(X_train, X_test, y_train, y_test) 
 
-# print ()
 
-# print("=== SAU THRESHOLD TUNING ===")
-# evaluate_multi_labels_model(y_test, y_pred_tuned, y_prob_2d, cols)
+# # sử dụng threshold tuning
+
+X_train, X_test, y_train, y_test = load_data_multi_label() #data\processed\clean_train.csv
+
+X_test_raw = X_test
+
+X_train, X_test = vectorize_data(X_train, X_test)
+
+model, X_test, y_test_ml, y_pred_ml, y_prob_2d, y_pred_tuned, best_thresholds, cols = train_multi_labels_model(X_train, X_test, y_train, y_test) 
+
+print ()
+
+# print("=== TRƯỚC THRESHOLD TUNING ===")
+# evaluate_multi_labels_model(y_test, y_pred_ml, y_prob_2d, cols)
+
+print("=== SAU THRESHOLD TUNING ===")
+evaluate_multi_labels_model(y_test, y_pred_tuned, y_prob_2d, cols, dir_save="multi_labels_threshold_tuning", model_name="multi_labels_threshold_tuning")
 
 
 

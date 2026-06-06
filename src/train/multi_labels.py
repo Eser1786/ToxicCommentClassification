@@ -2,7 +2,7 @@ from sklearn.multiclass import OneVsRestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 import pandas as pd
-from save_and_load import save_model
+from save_load.save_and_load import save_model
 import numpy as np
 from sklearn.metrics import f1_score    
 

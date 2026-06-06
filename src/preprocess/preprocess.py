@@ -2,7 +2,7 @@ import pandas as pd
 import re
 
 
-df = pd.read_csv("data/raw/train.csv")
+# df = pd.read_csv("data/raw/train.csv")
 
 labels = [
     "toxic",
@@ -24,14 +24,14 @@ def clean_text(text):
     text = text.strip()
     return text
 
-df["clean_text"] = df["comment_text"].apply(clean_text)
+# df["clean_text"] = df["comment_text"].apply(clean_text)
 
 # print(df["clean_text"].head())
 
-df = df.drop(columns=["comment_text"])
+# df = df.drop(columns=["comment_text"])
 
-print(df.columns)
-df = df.to_csv("data/processed/clean_train.csv", index=False)
+# print(df.columns)
+# df = df.to_csv("data/processed/clean_train.csv", index=False)
 
 
 

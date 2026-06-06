@@ -10,13 +10,21 @@ from sklearn.metrics import(
     auc,
     precision_recall_curve
 )
-
+import pandas as pd
 import numpy as np
-
+import os
 import matplotlib.pyplot as plt
 
-def evaluate_model(y_test, y_pred, y_prob):
-    print(classification_report(y_test, y_pred))
+def evaluate_model(y_test, y_pred, y_prob, dir_save, model_name):
+    # print(classification_report(y_test, y_pred))
+
+    results = classification_report(y_test, y_pred, output_dict=True)
+
+    df_report = pd.DataFrame(results).transpose()
+
+    os.makedirs(f"results/{dir_save}", exist_ok=True)
+    
+    df_report.to_csv(f"results/{dir_save}/classification_report_{model_name}.csv", index=True)
 
     # === confusion matrix ===
 
@@ -46,7 +54,7 @@ def evaluate_model(y_test, y_pred, y_prob):
                 va="center"
             )
     
-    plt.savefig("results/confusion_matrix_linear_SVM.png")
+    plt.savefig(f"results/{dir_save}/confusion_matrix_{model_name}.png")
 
     # plt.show()
 
@@ -73,29 +81,47 @@ def evaluate_model(y_test, y_pred, y_prob):
 
     plt.legend()
 
-    plt.savefig("results/roc_curve_Linear_SVM.png")
+    plt.savefig(f"results/{dir_save}/roc_curve_{model_name}.png")
 
     # plt.show()
 
-    print("ROC-AUC:", roc_auc)
+    # print("ROC-AUC:", roc_auc)
 
 
 
-def evaluate_multi_labels_model(y_test, y_pred, y_prob_2d, cols):
+def evaluate_multi_labels_model(y_test, y_pred, y_prob_2d, cols, dir_save, model_name):
 
     if hasattr(y_test, "values"):
         y_test = y_test.values
 
-    print(classification_report(y_test, y_pred, target_names=cols, zero_division=0))
+    # print(classification_report(y_test, y_pred, target_names=cols, zero_division=0))
+
+    results = classification_report(y_test, y_pred, target_names=cols, zero_division=0, output_dict=True)
+
+    df_report = pd.DataFrame(results).transpose()
+
+    os.makedirs(f"results/{dir_save}", exist_ok=True)
+
+    df_report.to_csv(f"results/{dir_save}/classification_report_multilabel_{model_name}.csv", index=True)
+
 
     label_cols = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
 
-    print()
+    # print()
 
     # metric Hamming loss
-    print("Hamming loss:", hamming_loss(y_test, y_pred))
+    # print("Hamming loss:", hamming_loss(y_test, y_pred))
 
-    print()
+    hl = hamming_loss(y_test, y_pred)
+
+    df_hl = pd.DataFrame({
+        "hamming loss": [hl]
+    })
+
+    df_hl.to_csv(f"results/{dir_save}/hamming_loss_multilabel_{model_name}.csv", index=False)
+
+
+    # print()
 
     # metric ROC-AUC/PR-AUC
 
@@ -131,7 +157,7 @@ def evaluate_multi_labels_model(y_test, y_pred, y_prob_2d, cols):
     axes[1].legend(loc="upper right", fontsize=8)
 
     plt.tight_layout()
-    # plt.savefig("results/multilabel_roc_pr_curves.png", dpi=150)
+    plt.savefig(f"results/{dir_save}/multilabel_roc_pr_curves_{model_name}.png", dpi=150)
     # plt.show()
 
 
@@ -145,5 +171,5 @@ def evaluate_multi_labels_model(y_test, y_pred, y_prob_2d, cols):
         ax.set_title(f"Confusion Matrix - {label}")
 
     plt.tight_layout()
-    plt.savefig("results/multilabel_confusion_matrices_threshold.png", dpi=150)
-    plt.show()
+    plt.savefig(f"results/{dir_save}/multilabel_confusion_matrices_{model_name}.png", dpi=150)
+    # plt.show()
